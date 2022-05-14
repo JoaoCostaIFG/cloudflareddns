@@ -4,34 +4,8 @@ import CloudFlare
 import json
 import requests
 from os import environ
+from os.path import exists as fileExists
 from sys import exit
-
-# Uses an external internet page to retrieve the machine's IP address
-def getMachineIP(isIPv4=True):
-    url = ("https://1.1.1.1" if isIPv4 else "https://[2606:4700:4700::1111]") + "/cdn-cgi/trace"
-    try:
-        req = requests.get(url).text.split("\n");
-        req.pop() # remove last entry (it's empty)
-        traceInfo = dict(entry.split("=") for entry in req)
-        return traceInfo["ip"]
-    except Exception:
-        print(f"Failure getting the Machine's IP{'v4' if isIPv4 else 'v6'} address.")
-        return None
-
-def getConfigPath():
-    # TODO maybe look for /config.json as well (for docker containers)
-    if not environ["CFDDNS_CONFIG"]:
-        return None
-
-    return environ["CFDDNS_CONFIG"]
-
-def authenticate(authInfo):
-    if "api_token" in authInfo:
-        return CloudFlare.CloudFlare(token=authInfo["api_token"])
-    elif "api_key" in authInfo:
-        return CloudFlare.CloudFlare(email=authInfo["api_key"]["email"], token=authInfo["api_key"]["key"])
-    # no valid auth info found
-    return None
 
 def getRemoteDNSRecords(cf, zoneId):
     dnsRecords = []
@@ -119,6 +93,33 @@ def processZone(cf, zoneInfo, ipv4, ipv6):
         print(f"Creating new remote record: {record}")
         cf.zones.dns_records.post(zoneId, data=record)
 
+# Uses an external internet page to retrieve the machine's IP address
+def getMachineIP(isIPv4=True):
+    url = ("https://1.1.1.1" if isIPv4 else "https://[2606:4700:4700::1111]") + "/cdn-cgi/trace"
+    try:
+        req = requests.get(url).text.split("\n");
+        req.pop() # remove last entry (it's empty)
+        traceInfo = dict(entry.split("=") for entry in req)
+        return traceInfo["ip"]
+    except Exception:
+        print(f"Failure getting the Machine's IP{'v4' if isIPv4 else 'v6'} address.")
+        return None
+
+def getConfigPath():
+    if environ["CFDDNS_CONFIG"]:
+        # env var present
+        return environ["CFDDNS_CONFIG"]
+    elif fileExists("/config.json"):
+        return "/config.json"
+    return None
+
+def authenticate(authInfo):
+    if "api_token" in authInfo:
+        return CloudFlare.CloudFlare(token=authInfo["api_token"])
+    elif "api_key" in authInfo:
+        return CloudFlare.CloudFlare(email=authInfo["api_key"]["email"], token=authInfo["api_key"]["key"])
+    # no valid auth info found
+    return None
 
 def main():
     configPath = getConfigPath()
