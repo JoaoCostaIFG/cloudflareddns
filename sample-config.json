@@ -1,0 +1,25 @@
+{
+  "cloudflare": [
+    {
+      "authentication": {
+        "api_token": "api token here",
+        "api_key": {
+          "api_key": "api key here",
+          "account_email": "your email here"
+        }
+      },
+      "zone_id": "your zone id here",
+      "zone_name": "your zone name here",
+      "subdomains": [
+        "",
+        "remove/replace with your subdomain"
+      ],
+      "proxied": false
+    },
+    {
+      ...
+    }
+  ],
+  "IPv4": true,
+  "IPv6": true
+}
