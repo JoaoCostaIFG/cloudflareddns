@@ -106,7 +106,7 @@ def getMachineIP(isIPv4=True):
         return None
 
 def getConfigPath():
-    if environ["CFDDNS_CONFIG"]:
+    if environ.get("CFDDNS_CONFIG"):
         # env var present
         return environ["CFDDNS_CONFIG"]
     elif fileExists("/config.json"):
