@@ -2,14 +2,12 @@
 
 ## Authentication
 
-You can use either of the following (refer to
-[Cloudflare's repo](https://github.com/cloudflare/python-cloudflare#using-shell-environment-variables)
-for more information):
+You can use either of the following:
 
-- `CF_API_KEY` if you're using an API token (**recommended**). This
-  token only needs permission to write to the needed zones;
-- `CF_API_KEY` and `CF_EMAIL` if you're using an API key (**not
-  recommended**). This option gives access to everything in your acount.
+- API token (**recommended**) - This token only needs permission to write to the
+  needed zones;
+- API key + email address (**not recommended**) - This option gives access to
+  everything in your acount, so it is not recommended.
 
 ## Obtaining IPs
 
