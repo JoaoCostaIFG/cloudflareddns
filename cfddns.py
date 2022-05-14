@@ -152,7 +152,7 @@ def main():
         try:
             processZone(cf, zone, ipv4, ipv6)
         except Exception as e:
-            print(e)
+            print(f"Caught exception while processing zone: {e}. Continuing...")
 
 if __name__ == "__main__":
     main()
