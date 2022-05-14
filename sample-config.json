@@ -4,8 +4,8 @@
       "authentication": {
         "api_token": "api token here",
         "api_key": {
-          "api_key": "api key here",
-          "account_email": "your email here"
+          "key": "api key here",
+          "email": "your email here"
         }
       },
       "zone_id": "your zone id here",
@@ -14,6 +14,7 @@
         "",
         "remove/replace with your subdomain"
       ],
+      "ttl": "auto",
       "proxied": false
     },
     {
