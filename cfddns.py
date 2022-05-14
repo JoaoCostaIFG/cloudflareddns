@@ -132,7 +132,7 @@ def main():
         with open(configPath) as configFile:
             config = json.loads(configFile.read())
     except Exception:
-        print(f"Failure reading config file at: {configPath}. Exitting...")
+        print(f"Failure reading config file at: {configPath}. Exiting...")
         exit(1)
 
     # whether or not to use IPv4/IPv6
