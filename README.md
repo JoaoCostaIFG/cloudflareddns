@@ -73,8 +73,9 @@ You can use either of the following:
 
 ### Obtaining IPs
 
-We use [Cloudflare cnd-cgi trace](https://www.cloudflare.com/cdn-cgi/trace), to
-obtain the machine's IPv4 and IPv6 address.
+We use [Cloudflare Trace API](https://www.cloudflare.com/cdn-cgi/trace)
+(described [here](https://github.com/fawazahmed0/cloudflare-trace-api)), to
+obtain the machine's IPv4/IPv6 address.
 
 ## Credits
 
