@@ -1,6 +1,6 @@
 services:
   cfddns:
-    build: .
+    image: joaocostaifg/cfddns
     container_name: cfddns
     security_opt:
       - no-new-privileges:true

@@ -3,6 +3,19 @@
 This repo contains a python script that will update/create DNS record in
 Cloudflare. It uses a versatile [config file](./sample-config.json) to do so.
 
+## Features
+
+- Can create and update Cloudflare DNS records;
+- All requests are HTTPS;
+- Checks IPs using a zero-log provider (see
+  [Obtaining IPs section](#obtaining-ips));
+- Has optional field, so it can be used to just update the remote record info
+  (without touching TTL, and proxy settings);
+- Support both IPv4 and IPv6;
+- Only logs information when it changing something remotely: cron only send an
+  e-mail notification when there are changes;
+- Has a docker container for those interested.
+
 ## Running
 
 ### Cronjob
@@ -28,7 +41,7 @@ list of **zones**, and an option specifying whether or to use IPv4 and IPv6.
 Consideration on creating a zone:
 
 - Provide an `authentication` method. Either `api_token`, or `api_key`. These
-  are explained in the [authentication section](#Authentication);
+  are explained in the [authentication section](#authentication);
 - Provide a `zone_id` or a `zone_name`. You can provide both, but it isn't
   necessary;
 - Provide the list of `subdomains` to update/create. The **empty subdomain**
