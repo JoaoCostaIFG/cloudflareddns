@@ -24,12 +24,13 @@ def getRemoteDNSRecords(cf, zoneId):
 
 # Updates the remote record corresponding to record (if any).
 def updateRemoteRecord(cf, zoneId, zoneName, remoteRecords, record):
-    if len(record["name"]) > 0:
-        # subdomain
-        fqdn = f"{record['name']}.{zoneName}"
-    else:
+    if len(record["name"]) == 0:
         # basedomain
         fqdn = zoneName
+        record['name'] = zoneName
+    else:
+        # subdomain
+        fqdn = f"{record['name']}.{zoneName}"
 
     for remote in remoteRecords:
         # check if is duplicate
