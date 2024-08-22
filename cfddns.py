@@ -144,10 +144,8 @@ def main():
     if "IPv6" in config and config["IPv6"] is True:
         doIPv6 = True
 
-    if doIPv4:
-        ipv4 = getMachineIP()
-    if doIPv6:
-        ipv6 = getMachineIP(isIPv4=False)
+    ipv4 = getMachineIP() if doIPv4 else None
+    ipv6 = getMachineIP(isIPv4=False) if doIPv6 else None
 
     for zone in config["cloudflare"]:
         cf = authenticate(zone["authentication"])
